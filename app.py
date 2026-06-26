@@ -1,6 +1,6 @@
 # app.py
 import os
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -24,28 +24,34 @@ db.init_app(app)
 Migrate(app, db)
 
 # ==================================================
-# DB作成
+# Flaskに対する設定
 # ==================================================
-def init_db():
-       
-    with app.app_context():
+# 一覧
+@app.route('/')
+def index():
+    # ユーザー一覧を取得
+    list_users = User.query.all()
+    return render_template('users/list.html', list_users=list_users)
 
-        print(f"消去対象のテーブル: {db.metadata.tables.keys()}") 
-
-        print('(1)テーブルを削除してから作成')
-        db.drop_all()
-        db.create_all()
-
-        # データ作成
-        print('(2)データ登録：実行')
-        user01 = User(name='ねずみ', email='mouse@mouse.com')
-        user02 = User(name='うし', email='beaf@beaf.com')
-        user03 = User(name='とら', email='tiger@tiger.com')
-        db.session.add_all([user01, user02, user03])
+@app.route('/new', methods=['GET', 'POST'])
+def new_user():
+    # POST
+    if request.method == 'POST':
+        # 入力取得
+        name = request.form['name']
+        email = request.form['email']
+        user = User(name = name, email = email )
+        # 登録
+        db.session.add(user)
         db.session.commit()
+        # 一覧へ
+        return redirect(url_for('new_user'))
+    # GET
+    return render_template('users/new.html')
+
 
 # ==================================================
 # 実行
 # ==================================================
 if __name__ == '__main__':
-    init_db()           
+    app.run()           

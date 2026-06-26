@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規利用者登録</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>新規利用者登録</h1>
+        
+        <form method="POST" action="{{ url_for('new_user') }}">
+            
+            <!-- 名前の入力 -->
+            <label for="name">お名前:</label><br>
+            <input type="text" id="name" name="name" class="text-input" placeholder="例：ねずみ" required><br>
+            
+            <!-- メールの入力 -->
+            <label for="email">メールアドレス:</label><br>
+            <input type="email" id="email" name="email" class="text-input" placeholder="例：mouse@example.com" required><br>
+
+            <!-- 送信ボタン -->
+            <input type="submit" value="登録する" class="button">
+        </form>
+
+        <hr>
+        <!-- 一覧に戻る -->
+        <a href="{{ url_for('index') }}">一覧に戻る</a>
+    </div>
+</body>
+</html>

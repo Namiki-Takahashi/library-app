@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>Task List</title>
+    <meta charset="UTF-8">
+    <title>利用者一覧</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <a href="{{ url_for('new_task') }}" class="button">新規作成</a>
+        <h1>利用者一覧</h1>
+        
+        <!-- 新規作成ボタン -->
+        <a href="{{ url_for('new_user') }}" class="button">新規作成</a>
+        
         <hr>
-        <h2 class="no-complete">未完了：課題一覧</h2>
+
+        <!-- 未登録の場合の処理 -->
+        {% if not list_users %}
+            <p>利用者が登録されていません。</p>
+        {% endif %}
+
         <ul>
-            {% for task in uncompleted_tasks %}
-            <div>
-                <p>{{ task.content }}</p>
-                <form method="post" action="{{ url_for('complete_task', task_id=task.id) }}">
-                    <button type="submit" class="complete-button">完了</button>
-                </form>
-            </div>
+            {% for user in list_users %}
+            <li>
+                <div>
+                    <p><strong>利用者ID：{{ user.user_id }}</strong></p>
+                    <p>利用者名：{{ user.name }}</p>
+                    <p>メルアド：{{ user.email }}</p>
+                </div>
+            </li>
             {% endfor %}
         </ul>
+
         <hr>
-        <h2 class="complete">完了：課題一覧</h2>
-        <ul>
-            {% for task in completed_tasks %}
-            <div>
-                <p>{{ task.content }}</p>
-                <form method="post" action="{{ url_for('uncomplete_task', task_id=task.id) }}">
-                    <button type="submit" class="uncomplete-button">戻す</button>
-                </form>
-            </div>
-            {% endfor %}
-        </ul>
     </div>
 </body>
 </html>
