@@ -1,13 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired
 
 class BorrowForm( FlaskForm ):
-    name = StringField('利用者', 
-                       validators=[DataRequired(message="名前は必須です")])
-    book = StringField('本', 
-                       validators=[DataRequired(message="名前は必須です")])
-    stock = IntegerField('在庫冊数', 
-            validators=[NumberRange(min=1, message="在庫が0のため貸出できません")])
     
+    user_id = SelectField('利用者名', coerce=int, validators=[DataRequired()])
+    book_id = SelectField('本タイトル', coerce=int, validators=[DataRequired()])
+
     submit = SubmitField('登録する')

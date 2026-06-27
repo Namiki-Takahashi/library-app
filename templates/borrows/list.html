@@ -2,6 +2,9 @@
 
 {% block content %}
     <h2>貸出中一覧</h2>
+    <div style="text-align: right; padding-right: 20px;">
+        <a href="{{ url_for('borrows.new_borrow') }}" class="shinki-button">新 規 貸 出</a>
+    </div>
     <div class="table-wrapper">
         <table class="user-table">
                 <colgroup>
@@ -15,7 +18,7 @@
                     <th>利用者名</th>
                     <th>本タイトル</th>
                     <th>貸出日時</th>
-                    <th class="actions"><a href="{{ url_for('borrows.new_borrow') }}" class="shinki-button">新 規 貸 出</a></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

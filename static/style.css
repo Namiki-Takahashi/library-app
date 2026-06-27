@@ -25,16 +25,8 @@ label {
 
 
 /* div要素のスタイル */
-div {
-    /* 背景色を白 */
-    background-color: white;
-    /* ボーダーを1pxのソリッド (実線) ライトグレー */
-    border: 1px solid #ccc;
-    /* 要素の下側に外側の余白 (マージン) を10pxに設定 */
-    margin-bottom: 10px;
-    /* 要素の全ての辺 (上、右、下、左) に対して、内側に10pxに設定 */
-    padding: 10px;
-}
+
+
 
 /* 段落のフォントサイズを20pxに設定 */
 p {
@@ -228,7 +220,6 @@ p {
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
-    text-align: right;
 }
 
 /* ボタンのスタイル */
@@ -289,21 +280,21 @@ p {
     font-size: 16px;        /* 文字サイズ */
     cursor: pointer;        /* カーソルを指の形に */
     box-sizing: border-box; /* 枠線を含めたサイズ計算 */
-    appearance: none;       /* OS標準のスタイルをリセット（任意） */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    /* 背景に矢印アイコンを入れるとおしゃれです */
-    background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="gray" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 12px center; /* 矢印の位置 */
 }
 
-/* プルダウンがクリックされた時（フォーカス時） */
-.select-input:focus {
-    outline: none;
-    border-color: #2196F3; /* 縁を青くする */
-    box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+.select-input-borrow {
+    width: 100%;             /* ★幅を100%にする（これで横に広がります） */
+    max-width: 100%;         /* はみ出し防止 */
+    height: 40px;            /* テキスト入力欄と同じ高さに設定 */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+    box-sizing: border-box;  /* 枠線を含めて100%の幅にする設定 */
+    cursor: pointer;
 }
+
 
 .header-nav {
     margin-bottom: 10px;
@@ -318,3 +309,4 @@ p {
 .header-nav a:hover {
     text-decoration: underline;
 }
+

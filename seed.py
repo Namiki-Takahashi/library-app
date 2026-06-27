@@ -7,7 +7,7 @@ from models import db, User, Book, Borrow
 # 日本語設定
 fake = Faker('ja_JP')
 
-def seed_data(num_users=300, num_books=400, num_borrows=500):
+def seed_data(num_users=10, num_books=10, num_borrows=10):
     with app.app_context():
         print("既存データを削除中...")
         db.session.query(Borrow).delete()

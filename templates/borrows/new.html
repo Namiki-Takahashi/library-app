@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}新規貸出 - 図書館貸出管理アプリ{% endblock %}
+
+{% block content %}
+<h2>新規貸出登録</h2>
+<form method="POST" action="{{ url_for('borrows.new_borrow') }}">
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.user_id.label }}<br>
+        {{ form.user_id(class="select-input-borrow") }}
+        {% for error in form.user_id.errors %}<span class="error">[{{ error }}]</span>{% endfor %}
+    </p>
+
+    <p>
+        {{ form.book_id.label }}<br>
+        {{ form.book_id(class="select-input-borrow") }}
+        {% for error in form.book_id.errors %}<span class="error">[{{ error }}]</span>{% endfor %}
+    </p>
+
+    <!-- 送信ボタン -->
+    {{ form.submit(class="button") }}
+</form>
+
+<hr>
+<!-- 一覧に戻る -->
+<a href="{{ url_for('books.index') }}">一覧に戻る</a>
+
+{% endblock %}

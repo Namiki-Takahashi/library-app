@@ -4,7 +4,9 @@
 
 {% block content %}
     <h2>利用者一覧</h2>
-
+    <div style="text-align: right; padding-right: 20px;">
+        <a href="{{ url_for('users.new_user') }}" class="shinki-button">新 規 作 成</a>
+    </div>
     <div class="table-wrapper">
         <table class="user-table">
             <colgroup>
@@ -18,10 +20,7 @@
                     <th>ID</th>
                     <th>利用者名</th>
                     <th>メールアドレス</th>
-                    <!-- 新規作成ボタンはヘッダーの中に配置 -->
-                    <th class="actions">
-                        <a href="{{ url_for('users.new_user') }}" class="shinki-button">新 規 作 成</a>
-                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

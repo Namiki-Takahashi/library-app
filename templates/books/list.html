@@ -4,6 +4,9 @@
 
 {% block content %}
     <h2>本一覧・管理</h2>
+    <div style="text-align: right; padding-right: 20px;">
+        <a href="{{ url_for('books.new_book') }}" class="shinki-button">新 規 作 成</a>
+    </div>
     <div class="table-wrapper">
         <table class="user-table">
             <colgroup>
@@ -21,7 +24,7 @@
                     <th>著者</th>
                     <th>ジャンル</th>
                     <th>在庫</th>
-                    <th class="actions"><a href="{{ url_for('books.new_book') }}" class="shinki-button">新 規 作 成</a></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

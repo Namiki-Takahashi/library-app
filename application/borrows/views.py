@@ -20,29 +20,25 @@ def index():
 @borrows_blueprint.route('/new', methods=['GET', 'POST'])
 def new_borrow():
     form = BorrowForm()
-    if form.validate_on_submit():
-        # 名前からUserレコード取得
-        user = User.query.filter_by(name=form.name.data).first()
-        # タイトルからBookレコード取得
-        book = Book.query.filter_by(title=form.book.data).first()
 
-        # 3. 存在チェック
-        if not user:
-            form.name.errors.append("指定された利用者は存在しません。")
-        elif not book:
-            form.book.errors.append("指定された本は存在しません。")
-        elif book.stock <= 0: # 在庫チェック
-            form.book.errors.append("この本は在庫切れです。")
+    # 利用者・本のプルダウン作成
+    form.user_id.choices = [(u.user_id, u.name) for u in User.query.all()]
+    form.book_id.choices = [(b.book_id, f"{b.title} (在庫:{b.stock}冊)") for b in Book.query.all()]
+
+    if form.validate_on_submit():
+        user = User.query.get(form.user_id.data)
+        book = Book.query.get(form.book_id.data)
+
+        if book.stock <= 0:
+            form.book_id.errors.append("在庫切れのため貸出不可")
         else:
-            # 貸出レコード作成
-            new_borrow_record = Borrow(user_id=user.user_id, book_id=book.book_id)
-            # 在庫デクリメント
+            new_record = Borrow(user_id=user.user_id, book_id=book.book_id)
             book.stock -= 1
             
-            db.session.add(new_borrow_record)
+            db.session.add(new_record)
             db.session.commit()
             return redirect(url_for('borrows.index'))
-    # エラー時
+
     return render_template('borrows/new.html', form=form)
 
 
