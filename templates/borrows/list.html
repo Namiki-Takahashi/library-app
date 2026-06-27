@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>貸出中一覧</h2>
+    <div class="table-wrapper">
+        <table class="user-table">
+                <colgroup>
+                    <col style="width: 20%;">   <!-- 利用者名 -->
+                    <col style="width: 40%;">   <!-- 本タイトル -->
+                    <col style="width: 25%;">   <!-- 貸出日時 -->
+                    <col style="width: 130px;"> <!-- 操作 -->
+                </colgroup>
+            <thead>
+                <tr>
+                    <th>利用者名</th>
+                    <th>本タイトル</th>
+                    <th>貸出日時</th>
+                    <th class="actions"><a href="{{ url_for('borrows.new_borrow') }}" class="shinki-button">新 規 貸 出</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for borrow in list_borrows %}
+                <tr>
+                    <!-- 名前 -->
+                    <td>{{ borrow.user.name }}</td>
+                    
+                    <!-- タイトル -->
+                    <td>{{ borrow.book.title }}</td>
+                    
+                    <!-- 日付 -->
+                    <td>{{ borrow.borrowed_at.strftime('%Y/%m/%d %H:%M:%S') }}</td>
+                    
+                    <td class="actions">
+                        <form action="{{ url_for('borrows.return_book', borrows_id=borrow.borrows_id) }}" method="POST">
+                            {{ form.hidden_tag() }}
+                            <input type="submit" value="返却" class="edit-button" onclick="return confirm('返却しますか？')">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

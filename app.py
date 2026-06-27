@@ -40,6 +40,9 @@ app.register_blueprint(users_blueprint, url_prefix='/users')
 from application.books.views import books_blueprint
 app.register_blueprint(books_blueprint, url_prefix='/books')
 
+from application.borrows.views import borrows_blueprint
+app.register_blueprint(borrows_blueprint, url_prefix='/borrows')
+
 # ==================================================
 # ルーティング
 # ==================================================

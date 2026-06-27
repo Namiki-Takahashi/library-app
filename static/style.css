@@ -172,6 +172,7 @@ p {
 .actions {
     text-align: right;
     white-space: nowrap;
+    padding-right: 15px;
 }
 
 /* --- 削除ボタン --- */
@@ -227,6 +228,7 @@ p {
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
+    text-align: right;
 }
 
 /* ボタンのスタイル */
