@@ -1,23 +1,15 @@
 /* ページ全体の設定 */
 .container {
-    /* 背景色を#f8f8f8 (薄いグレー) */
-    background-color: #f8f8f8;
-    /* 最大幅を800pxに制限 */
+    background-color: #ffe89d;
     max-width: 2000px;
-    /* 上下左右に20pxのパディング (内側の余白) を設定 */
     padding: 3px;
-    /* フォントファミリー (文字の種類) をArialとsans-serifに設定 */
     font-family: Arial, sans-serif;
 }
 
-/* ヘッダー (大見出し) のスタイル設定 */
 h1 {
-    /* 文字色を#333 (ダークグレー) に設定 */
     color: #333;
-    /* テキストを中央寄せ */
     text-align: center;
-    /* 上部のマージン (外側の余白) を50pxに設定 */
-    margin-top: 50px;
+    margin-top: 1px;
 }
 
 /* ラベルのフォントサイズを20pxに設定 */
