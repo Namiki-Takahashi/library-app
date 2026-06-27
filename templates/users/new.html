@@ -9,7 +9,7 @@
     <div class="container">
         <h1>新規利用者登録</h1>
         
-        <form method="POST" action="{{ url_for('new_user') }}">
+        <form method="POST" action="{{ url_for('users.new_user') }}">
             {{ form.hidden_tag() }} <!-- CSRF対策 -->
             
             <!-- 名前の入力 -->
@@ -36,7 +36,7 @@
 
         <hr>
         <!-- 一覧に戻る -->
-        <a href="{{ url_for('index') }}">一覧に戻る</a>
+        <a href="{{ url_for('users.index') }}">一覧に戻る</a>
     </div>
 </body>
 </html>
