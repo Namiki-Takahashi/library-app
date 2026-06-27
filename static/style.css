@@ -3,7 +3,7 @@
     /* 背景色を#f8f8f8 (薄いグレー) */
     background-color: #f8f8f8;
     /* 最大幅を800pxに制限 */
-    max-width: 800px;
+    max-width: 2000px;
     /* 上下左右に20pxのパディング (内側の余白) を設定 */
     padding: 3px;
     /* フォントファミリー (文字の種類) をArialとsans-serifに設定 */
@@ -105,19 +105,50 @@ p {
     margin-top: 10px;
 }
 
+.table-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd; 
+    margin-top: 10px;
+    padding: 0; 
+}
+
 .user-table {
     width: 100%;
-  /*  table-layout: fixed; */
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
+    border-collapse: separate; 
+    border-spacing: 0;       
+    table-layout: fixed;
+}
+
+.user-table thead th {
+    position: sticky;
+    top: 0;         
+    z-index: 10;
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px 10px;
+    box-shadow: inset 0 -1px 0 #ddd,
+                inset 0 1px 0 #ddd; 
+}
+
+.user-table th:first-child,
+.user-table td:first-child {
+    border-left: none;
 }
 
 .user-table td {
-    border: 1px solid #ddd;
-    padding: 0 10px;  
-    height: 48px;  
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #c0c0c0;
+    border-right: 1px solid #eee;
+    height: 48px;
     vertical-align: middle;
+}
+
+.user-table th:last-child,
+.user-table td:last-child {
+    border-right: none;
 }
 
 .user-table th {

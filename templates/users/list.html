@@ -4,59 +4,64 @@
 
 {% block content %}
     <h2>利用者一覧</h2>
-    
-    <table class="user-table">
-        <colgroup>
-            <col style="width: 60px;">     <!-- 50px -->
-            <col class="col-name">   <!-- 30% -->
-            <col class="col-name">   <!-- アドレス -->
-            <col style="width: 130px;"> <!-- 操作 180px -->
-        </colgroup>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>利用者名</th>
-                <th>メールアドレス</th>
-                <th class="actions"><a href="{{ url_for('users.new_user') }}" class="shinki-button">新 規 作 成</a></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in list_users %}
-            <tr>
-                <td>{{ user.user_id }}</td>
-                {% if user.user_id == edit_id %}
-                    <!-- ★【編集モード】 -->
-                    <td>
-                        <input type="text" name="name" form="form-{{user.user_id}}" 
-                            value="{{ form.name.data if form.name.data else user.name }}" class="table-input">
-                        {% for error in form.name.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
-                    </td>
-                    <td>
-                        <input type="email" name="email" form="form-{{user.user_id}}" 
-                            value="{{ form.email.data if form.email.data else user.email }}" class="table-input">
-                        {% for error in form.email.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
-                    </td>
-                    <td class="actions">
-                        <form id="form-{{user.user_id}}" action="{{ url_for('users.update_user', user_id=user.user_id) }}" method="POST">
-                            {{ form.hidden_tag() }}
-                            <input type="submit" value="確定" class="confirm-button">
-                            <a href="{{ url_for('users.index') }}" class="cancel-link">キャンセル</a>
-                        </form>
-                    </td>
-                {% else %}
-                    <!-- ★【通常モード】 -->
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td class="actions">
-                        <a href="{{ url_for('users.index', edit_id=user.user_id) }}" class="edit-button">編集</a>
-                        
-                        <form action="{{ url_for('users.delete_user', user_id=user.user_id) }}" method="POST" style="display: inline;">
-                            <input type="submit" value="削除" class="delete-button" onclick="return confirm('本当に削除しますか？')">
-                        </form>
-                    </td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+    <div class="table-wrapper">
+        <table class="user-table">
+            <colgroup>
+                <col style="width: 60px;">
+                <col class="col-name">
+                <col class="col-name">
+                <col style="width: 130px;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>利用者名</th>
+                    <th>メールアドレス</th>
+                    <!-- 新規作成ボタンはヘッダーの中に配置 -->
+                    <th class="actions">
+                        <a href="{{ url_for('users.new_user') }}" class="shinki-button">新 規 作 成</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in list_users %}
+                <tr>
+                    <td>{{ user.user_id }}</td>
+                    {% if user.user_id == edit_id %}
+                        <!-- ★【編集モード】 -->
+                        <td>
+                            <input type="text" name="name" form="form-{{user.user_id}}" 
+                                value="{{ form.name.data if form.name.data else user.name }}" class="table-input">
+                            {% for error in form.name.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
+                        </td>
+                        <td>
+                            <input type="email" name="email" form="form-{{user.user_id}}" 
+                                value="{{ form.email.data if form.email.data else user.email }}" class="table-input">
+                            {% for error in form.email.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
+                        </td>
+                        <td class="actions">
+                            <form id="form-{{user.user_id}}" action="{{ url_for('users.update_user', user_id=user.user_id) }}" method="POST">
+                                {{ form.hidden_tag() }}
+                                <input type="submit" value="確定" class="confirm-button">
+                                <a href="{{ url_for('users.index') }}" class="cancel-link">キャンセル</a>
+                            </form>
+                        </td>
+                    {% else %}
+                        <!-- ★【通常モード】 -->
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('users.index', edit_id=user.user_id) }}" class="edit-button">編集</a>
+                            
+                            <form action="{{ url_for('users.delete_user', user_id=user.user_id) }}" method="POST" style="display: inline;">
+                                <input type="submit" value="削除" class="delete-button" onclick="return confirm('本当に削除しますか？')">
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
