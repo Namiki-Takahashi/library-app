@@ -18,7 +18,7 @@ class User(db.Model):
         return f'利用者ID：{self.user_id} 利用者名：{self.name} メール：{self.email}'
     
 
-class Books(db.Model):
+class Book(db.Model):
     # テーブル名
     __tablename__ = 'books'
     

@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>図書管理アプリ</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>図書管理システム：メニュー</h1>
-        <hr>
-        <ul>
-            <li><a href="{{ url_for('users.index') }}">利用者一覧・管理</a></li>
-        </ul>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>メニュー</h2>
+    <ul>
+        <li><a href="{{ url_for('users.index') }}">利用者一覧・管理</a></li>
+        <li><a href="{{ url_for('books.index') }}">本一覧・管理</a></li>
+    </ul>
+{% endblock %}

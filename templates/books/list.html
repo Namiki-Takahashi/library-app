@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}本管理 - 図書館貸出管理アプリ{% endblock %}
+
+{% block content %}
+    <h2>本一覧・管理</h2>
+
+    <table class="user-table">
+        <colgroup>
+            <col style="width: 60px;">     <!-- 50px -->
+            <col class="col-name">   <!-- 30% -->
+            <col class="col-name">   <!-- 著者用 -->
+            <col class="col-name">   <!-- ジャンル用 -->
+            <col style="width: 60px;"> <!-- 在庫数 -->
+            <col style="width: 130px;"> <!-- 操作 180px -->
+        </colgroup>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>タイトル</th>
+                <th>著者</th>
+                <th>ジャンル</th>
+                <th>在庫</th>
+                <th class="actions"><a href="{{ url_for('books.new_book') }}" class="shinki-button">新 規 作 成</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in list_books %}
+            <tr>
+                <td>{{ book.book_id }}</td>
+
+                {% if book.book_id == edit_id %}
+                    <!-- ★【編集モード】 -->
+                    <td>
+                        <input type="text" name="title" form="form-{{book.book_id}}" 
+                               value="{{ form.title.data if form.title.data is not none else book.title }}" class="table-input">
+                        {% for error in form.title.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                    </td>
+                    <td>
+                        <input type="text" name="author" form="form-{{book.book_id}}" 
+                               value="{{ form.author.data if form.author.data is not none else book.author }}" class="table-input">
+                        {% for error in form.author.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                    </td>
+                    <td>
+                        <input type="text" name="genre" form="form-{{book.book_id}}" 
+                               value="{{ form.genre.data if form.genre.data is not none else book.genre }}" class="table-input">
+                        {% for error in form.genre.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                    </td>
+                    <td>
+                        <!-- 在庫数のプルダウン -->
+                        <select name="stock" form="form-{{book.book_id}}" class="table-input">
+                            {% for i in range(11) %}
+                            <option value="{{ i }}" {% if (form.stock.data if form.stock.data is not none else book.stock)|int == i %}selected{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        {% for error in form.stock.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                    </td>
+                    <td class="actions">
+                        <form id="form-{{book.book_id}}" action="{{ url_for('books.update_book', book_id=book.book_id) }}" method="POST">
+                            {{ form.hidden_tag() }}
+                            <input type="submit" value="確定" class="confirm-button">
+                            <a href="{{ url_for('books.index') }}" class="cancel-link">キャンセル</a>
+                        </form>
+                    </td>
+                {% else %}
+                    <!-- ★【通常モード】 -->
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.genre }}</td>
+                    <td>{{ book.stock }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('books.index', edit_id=book.book_id) }}" class="edit-button">編集</a>
+                        <form action="{{ url_for('books.delete_book', book_id=book.book_id) }}" method="POST" style="display: inline;">
+                            <input type="submit" value="削除" class="delete-button" onclick="return confirm('本当に削除しますか？')">
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

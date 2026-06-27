@@ -124,6 +124,7 @@ p {
     background-color: #f2f2f2;
     padding: 10px;
     height: 40px;
+    text-align: left;
 }
 
 /* --- 入力欄のスタイル --- */
@@ -248,4 +249,47 @@ p {
     margin-left: 8px;
     display: inline-block;
     vertical-align: middle;
+}
+
+
+/* プルダウン専用のスタイル 在庫冊数用 */
+.select-input {
+    margin-left: 10px;
+    width: 60px;            /* 横幅を親要素に合わせる */
+    height: 40px;           /* テキスト入力欄と同じ高さにする */
+    padding: 8px 12px;      /* 内側の余白 */
+    border: 1px solid #ccc; /* 縁の色 */
+    border-radius: 4px;     /* 角丸 */
+    background-color: white;
+    font-size: 16px;        /* 文字サイズ */
+    cursor: pointer;        /* カーソルを指の形に */
+    box-sizing: border-box; /* 枠線を含めたサイズ計算 */
+    appearance: none;       /* OS標準のスタイルをリセット（任意） */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 背景に矢印アイコンを入れるとおしゃれです */
+    background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="gray" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center; /* 矢印の位置 */
+}
+
+/* プルダウンがクリックされた時（フォーカス時） */
+.select-input:focus {
+    outline: none;
+    border-color: #2196F3; /* 縁を青くする */
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+}
+
+.header-nav {
+    margin-bottom: 10px;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #0000EE;
+    margin: 0 5px;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
 }

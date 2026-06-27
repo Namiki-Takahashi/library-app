@@ -24,7 +24,7 @@ def new_user():
         user = User(name=form.name.data, email=form.email.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('users.index')) 
+        return redirect(url_for('users.index')) # Blueprint名.関数名
     return render_template('users/new.html', form=form)
 
 # --- 削除 ---

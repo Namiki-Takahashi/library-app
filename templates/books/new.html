@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}新規本登録 - 図書館貸出管理アプリ{% endblock %}
+
+{% block content %}
+
+<h2>新規本登録</h2>
+
+<form method="POST" action="{{ url_for('books.new_book') }}">
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(class="text-input", placeholder="例：吾輩は猫である") }}
+        {% for error in form.title.errors %}<span class="error">[{{ error }}]</span>{% endfor %}
+    </p>
+
+    <p>
+        {{ form.author.label }}<br>
+        {{ form.author(class="text-input", placeholder="例：夏目漱石") }}
+    </p>
+
+    <p>
+        {{ form.genre.label }}<br>
+        {{ form.genre(class="text-input", placeholder="例：日本文学") }}
+    </p>
+
+    <p>
+        {{ form.stock.label }}<br>
+        {{ form.stock(class="select-input") }}
+        {% for error in form.stock.errors %}<span class="error">[{{ error }}]</span>{% endfor %}
+    </p>
+
+    <!-- 送信ボタン -->
+    {{ form.submit(class="button") }}
+</form>
+
+<hr>
+<!-- 一覧に戻る -->
+<a href="{{ url_for('books.index') }}">一覧に戻る</a>
+
+{% endblock %}

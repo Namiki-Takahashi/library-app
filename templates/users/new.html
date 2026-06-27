@@ -1,42 +1,38 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>新規利用者登録</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>新規利用者登録</h1>
-        
-        <form method="POST" action="{{ url_for('users.new_user') }}">
-            {{ form.hidden_tag() }} <!-- CSRF対策 -->
-            
-            <!-- 名前の入力 -->
-            <p>
-                {{ form.name.label }}<br>
-                {{ form.name(class="text-input") }}
-                {% for error in form.name.errors %} 
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            
-            <!-- メールの入力 -->
-            <p>
-                {{ form.email.label }}<br>
-                {{ form.email(class="text-input") }}
-                {% for error in form.email.errors %} 
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
+{% extends "base.html" %}
 
-            <!-- 送信ボタン -->
-            {{ form.submit(class="button") }}
-        </form>
+{% block title %}新規本登録 - 図書館貸出管理アプリ{% endblock %}
 
-        <hr>
-        <!-- 一覧に戻る -->
-        <a href="{{ url_for('users.index') }}">一覧に戻る</a>
-    </div>
-</body>
-</html>
+{% block content %}
+
+<h1>新規利用者登録</h1>
+
+<form method="POST" action="{{ url_for('users.new_user') }}">
+    {{ form.hidden_tag() }} <!-- CSRF対策 -->
+    
+    <!-- 名前の入力 -->
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="text-input", placeholder="例：大原 太郎") }}
+        {% for error in form.name.errors %} 
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    
+    <!-- メールの入力 -->
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(class="text-input", placeholder="例：hogehoge@hoge.com") }}
+        {% for error in form.email.errors %} 
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+
+    <!-- 送信ボタン -->
+    {{ form.submit(class="button") }}
+</form>
+
+<hr>
+<!-- 一覧に戻る -->
+<a href="{{ url_for('users.index') }}">一覧に戻る</a>
+
+{% endblock %}
