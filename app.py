@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+from application.users.forms import UserForm
 from models import db, User
 
 # ==================================================
@@ -24,30 +24,42 @@ db.init_app(app)
 Migrate(app, db)
 
 # ==================================================
-# Flaskに対する設定
+# ユーザー
 # ==================================================
 # 一覧
-@app.route('/')
+@app.route('/users')
 def index():
     # ユーザー一覧を取得
     list_users = User.query.all()
     return render_template('users/list.html', list_users=list_users)
 
-@app.route('/new', methods=['GET', 'POST'])
+# 登録処理
+@app.route('/users/new', methods=['GET', 'POST'])
 def new_user():
+    form = UserForm(request.form)
     # POST
     if request.method == 'POST':
         # 入力取得
-        name = request.form['name']
-        email = request.form['email']
-        user = User(name = name, email = email )
+        name = form.name.data
+        email = form.email.data
+        user = User(name=name, email=email )
         # 登録
         db.session.add(user)
         db.session.commit()
         # 一覧へ
-        return redirect(url_for('new_user'))
+        return redirect(url_for('index'))
     # GET
-    return render_template('users/new.html')
+    return render_template('users/new.html', form=form)
+
+# 削除処理
+@app.route('/users/delete/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect(url_for('index'))
 
 
 # ==================================================

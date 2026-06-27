@@ -5,7 +5,7 @@
     /* 最大幅を800pxに制限 */
     max-width: 800px;
     /* 上下左右に20pxのパディング (内側の余白) を設定 */
-    padding: 20px;
+    padding: 3px;
     /* フォントファミリー (文字の種類) をArialとsans-serifに設定 */
     font-family: Arial, sans-serif;
 }
@@ -130,4 +130,16 @@ p {
     border: 1px solid #ccc;
     /* 要素の全ての辺 (上、右、下、左) に対して、内側に10pxに設定 */
     margin: 10px;
+}
+
+/*削除ボタン*/
+.delete-button {
+    background-color: #f44336; /* 赤色 */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
 }
