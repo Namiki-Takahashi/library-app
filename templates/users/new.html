@@ -9,10 +9,19 @@
 <form method="POST" action="{{ url_for('users.new_user') }}">
     {{ form.hidden_tag() }} <!-- CSRF対策 -->
     
-    <!-- 名前の入力 -->
+    <!-- 名前 -->
     <p>
         {{ form.name.label }}<br>
         {{ form.name(class="text-input", placeholder="例：大原 太郎") }}
+        {% for error in form.name.errors %} 
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+
+        <!-- ふりがな -->
+    <p>
+        {{ form.kana.label }}<br>
+        {{ form.kana(class="text-input", placeholder="例：おおはら たろう") }}
         {% for error in form.name.errors %} 
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}

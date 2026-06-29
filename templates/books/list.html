@@ -12,6 +12,7 @@
             <colgroup>
                 <col style="width: 60px;">     <!-- 50px -->
                 <col class="col-name">   <!-- 30% -->
+                <col class="col-name">
                 <col class="col-name">   <!-- 著者用 -->
                 <col class="col-name">   <!-- ジャンル用 -->
                 <col style="width: 60px;"> <!-- 在庫数 -->
@@ -21,6 +22,7 @@
                 <tr>
                     <th>ID</th>
                     <th>タイトル</th>
+                    <th>ふりがな</th>
                     <th>著者</th>
                     <th>ジャンル</th>
                     <th>在庫</th>
@@ -38,6 +40,11 @@
                             <input type="text" name="title" form="form-{{book.book_id}}" 
                                 value="{{ form.title.data if form.title.data is not none else book.title }}" class="table-input">
                             {% for error in form.title.errors %}<span class="error">{{ error }}</span>{% endfor %}
+                        </td>
+                        <td>
+                            <input type="text" name="kana" form="form-{{book.book_id}}" 
+                                value="{{ form.kana.data if form.kana.data is not none else book.kana }}" class="table-input">
+                            {% for error in form.kana.errors %}<span class="error">{{ error }}</span>{% endfor %}
                         </td>
                         <td>
                             <input type="text" name="author" form="form-{{book.book_id}}" 
@@ -68,6 +75,7 @@
                     {% else %}
                         <!-- ★【通常モード】 -->
                         <td>{{ book.title }}</td>
+                        <td>{{ book.kana }}</td>
                         <td>{{ book.author }}</td>
                         <td>{{ book.genre }}</td>
                         <td>{{ book.stock }}</td>

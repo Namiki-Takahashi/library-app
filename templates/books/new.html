@@ -14,7 +14,10 @@
         {{ form.title(class="text-input", placeholder="例：吾輩は猫である") }}
         {% for error in form.title.errors %}<span class="error">[{{ error }}]</span>{% endfor %}
     </p>
-
+    <p>
+        {{ form.kana.label }}<br>
+        {{ form.kana(class="text-input", placeholder="例：わがはいはねこである") }}
+    </p>
     <p>
         {{ form.author.label }}<br>
         {{ form.author(class="text-input", placeholder="例：夏目漱石") }}

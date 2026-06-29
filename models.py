@@ -9,11 +9,14 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # 利用者名
     name = db.Column(db.String(200), nullable=False)
+    # ふりがな
+    kana = db.Column(db.String(200), nullable=False)
     # メール
     email = db.Column(db.String(200), nullable=False)  
-
-    # ユーザーの貸出履歴取得用
-    borrows = db.relationship('Borrow', backref='user', lazy=True)
+    # 作成日
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    # 削除日
+    deleted_at = db.Column(db.DateTime, nullable=True)
 
     # 表示用
     def __str__(self):
@@ -27,12 +30,18 @@ class Book(db.Model):
     book_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # タイトル
     title = db.Column(db.String(200), nullable=False)
+    # ふりがな
+    kana = db.Column(db.String(200), nullable=False)
     # 著者
     author = db.Column(db.String(200), nullable=False)  
     # ジャンル
     genre = db.Column(db.String(200), nullable=False) 
     # 在庫冊数
     stock = db.Column(db.Integer, nullable=False) 
+    # 作成日
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    # 削除日
+    deleted_at = db.Column(db.DateTime, nullable=True)
 
     # 本の貸出履歴取得用
     borrows = db.relationship('Borrow', backref='book', lazy=True)

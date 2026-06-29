@@ -5,6 +5,8 @@ from wtforms.validators import DataRequired, InputRequired
 class BookForm( FlaskForm ):
     title = StringField('タイトル', 
                        validators=[DataRequired(message="必須項目です")])
+    kana = StringField('ふりがな', 
+                       validators=[DataRequired(message="必須項目です")])
     author = StringField('著者', 
                        validators=[DataRequired(message="必須項目です")])
     genre = StringField('ジャンル', 
