@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from models import db, Book
+from models import db, Book, Borrow
 from application.books.forms import BookForm
 from datetime import datetime
 
@@ -35,6 +35,17 @@ def new_book():
 # --- 削除 ---
 @books_blueprint.route('/delete/<int:book_id>', methods=['POST'])
 def delete_book(book_id):
+
+    
+    borrowing = Borrow.query.filter_by(
+        book_id=book_id,
+        returned_at=None
+    ).first()
+
+    if borrowing:
+        return redirect(url_for('books.index'))
+
+
     book = Book.query.get(book_id)
     if book.deleted_at is None: # すでに削除済みかどうか
         # 現在時刻登録

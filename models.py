@@ -18,6 +18,8 @@ class User(db.Model):
     # 削除日
     deleted_at = db.Column(db.DateTime, nullable=True)
 
+    borrows = db.relationship('Borrow', backref='user', lazy=True)
+
     # 表示用
     def __str__(self):
         return f'利用者ID：{self.user_id} 利用者名：{self.name} メール：{self.email}'
