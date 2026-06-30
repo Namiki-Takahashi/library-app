@@ -33,18 +33,18 @@
                         <!-- ★【編集モード】 -->
                         <td>
                             <input type="text" name="name" form="form-{{user.user_id}}" 
-                                value="{{ form.name.data if form.name.data else user.name }}" class="table-input">
-                            {% for error in form.name.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
+                                value="{{ form.name.data if form.name.data is not none else user.name }}" class="table-input">
+                            {% for error in form.name.errors %}<span class="error">{{ error }}</span>{% endfor %}
                         </td>
                         <td>
                             <input type="text" name="kana" form="form-{{user.user_id}}" 
-                                value="{{ form.kana.data if form.kana.data else user.kana }}" class="table-input">
-                            {% for error in form.kana.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
+                                value="{{ form.kana.data if form.kana.data is not none else user.kana }}" class="table-input">
+                            {% for error in form.kana.errors %}<span class="error">{{ error }}</span>{% endfor %}
                         </td>
                         <td>
                             <input type="email" name="email" form="form-{{user.user_id}}" 
-                                value="{{ form.email.data if form.email.data else user.email }}" class="table-input">
-                            {% for error in form.email.errors %}<br><span class="error">{{ error }}</span>{% endfor %}
+                                value="{{ form.email.data if form.email.data is not none else user.email }}" class="table-input">
+                            {% for error in form.email.errors %}<span class="error">{{ error }}</span>{% endfor %}
                         </td>
                         <td class="actions">
                             <form id="form-{{user.user_id}}" action="{{ url_for('users.update_user', user_id=user.user_id) }}" method="POST">

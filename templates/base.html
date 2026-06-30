@@ -22,5 +22,29 @@
         <!-- 各機能 -->
         {% block content %}{% endblock %}
     </div>
+
+
+ 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableWrapper = document.querySelector('.table-wrapper');
+
+            if (!tableWrapper) return;
+
+            const key = 'scrollPos_' + location.pathname;
+
+            const savedPos = sessionStorage.getItem(key);
+            if (savedPos !== null) {
+                tableWrapper.scrollTop = parseInt(savedPos);
+            }
+
+            window.addEventListener('beforeunload', function () {
+                sessionStorage.setItem(key, tableWrapper.scrollTop);
+            });
+        });
+    </script>
+
+
+
 </body>
 </html>
