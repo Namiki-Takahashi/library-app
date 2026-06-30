@@ -80,10 +80,31 @@
                         <td>{{ book.genre }}</td>
                         <td>{{ book.stock }}</td>
                         <td class="actions">
-                            <a href="{{ url_for('books.index', edit_id=book.book_id) }}" class="edit-button">編集</a>
-                            <form action="{{ url_for('books.delete_book', book_id=book.book_id) }}" method="POST" style="display: inline;">
-                                <input type="submit" value="削除" class="delete-button" onclick="return confirm('本当に削除しますか？')">
-                            </form>
+                            {% if book.book_id in borrowed_books %}
+                                <a href="{{ url_for('books.index', edit_id=book.book_id) }}"
+                                class="edit-button"
+                                onclick="return confirm('貸出中の本です。\n編集しますか？')">編集</a>
+                            {% else %}
+                                <a href="{{ url_for('books.index', edit_id=book.book_id) }}"
+                                class="edit-button">編集</a>
+                            {% endif %}
+                            
+                            {% if book.book_id in borrowed_books %}
+                                <input type="button"
+                                    value="削除"
+                                    class="delete-button"
+                                    onclick="alert('貸出中の本は削除できません。')">
+                            {% else %}
+                                <form action="{{ url_for('books.delete_book', book_id=book.book_id) }}"
+                                    method="POST"
+                                    style="display:inline;">
+                                    <input type="submit"
+                                        value="削除"
+                                        class="delete-button"
+                                        onclick="return confirm('本当に削除しますか？')">
+                                </form>
+                            {% endif %}
+
                         </td>
                     {% endif %}
                 </tr>

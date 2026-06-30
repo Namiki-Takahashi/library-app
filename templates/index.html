@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>メニュー</h2>
+    <h2>各種登録</h2>
     <ul>
-        <li><a href="{{ url_for('users.index') }}">利用者一覧・管理</a></li>
-        <li><a href="{{ url_for('books.index') }}">本一覧・管理</a></li>
-        <li><a href="{{ url_for('borrows.index') }}">貸出中一覧</a></li>
+        <li><a href="{{ url_for('users.new_user') }}">利用者登録</a></li>
+        <li><a href="{{ url_for('books.new_book') }}">書物登録</a></li>
+        <li><a href="{{ url_for('borrows.new_borrow') }}">貸出登録</a></li>
     </ul>
 {% endblock %}

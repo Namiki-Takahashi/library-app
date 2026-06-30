@@ -12,10 +12,17 @@ def index():
     edit_id = request.args.get('edit_id', type=int)
     list_books = Book.query.filter(Book.deleted_at.is_(None)).all()
     form = BookForm()
+
+    borrowed_books = {
+        b.book_id
+        for b in Borrow.query.filter_by(returned_at=None).all()
+    }
+
     return render_template('books/list.html', 
-                           list_books=list_books, 
-                           edit_id=edit_id, 
-                           form=form)
+                            list_books=list_books, 
+                            borrowed_books=borrowed_books,
+                            edit_id=edit_id, 
+                            form=form)
 
 # --- 新規登録 ---
 @books_blueprint.route('/new', methods=['GET', 'POST'])
@@ -35,17 +42,7 @@ def new_book():
 # --- 削除 ---
 @books_blueprint.route('/delete/<int:book_id>', methods=['POST'])
 def delete_book(book_id):
-
     
-    borrowing = Borrow.query.filter_by(
-        book_id=book_id,
-        returned_at=None
-    ).first()
-
-    if borrowing:
-        return redirect(url_for('books.index'))
-
-
     book = Book.query.get(book_id)
     if book.deleted_at is None: # すでに削除済みかどうか
         # 現在時刻登録
@@ -70,6 +67,6 @@ def update_book(book_id):
     # バリデーションエラー時
     list_books = Book.query.filter(Book.deleted_at == None).all()
     return render_template('books/list.html', 
-                           list_books=list_books, 
-                           edit_id=book_id, 
-                           form=form)
+                            list_books=list_books, 
+                            edit_id=book_id, 
+                            form=form)
